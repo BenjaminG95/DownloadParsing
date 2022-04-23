@@ -11,7 +11,7 @@ async function download(DIR, url) {
 
     const downloader = new Downloader({
         url: url,
-        headers: { 'User-Agent': userAgent.toString() },
+        headers: {'User-Agent': userAgent.toString()},
         directory: DIR,
         cloneFiles: false,
         onBeforeSave: (deducedName) => {
@@ -68,4 +68,4 @@ function createDir() {
     return DIR;
 }
 
-module.exports = { download, getOutput, createDir };
+module.exports = {download, getOutput, createDir};

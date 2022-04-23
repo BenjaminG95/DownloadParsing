@@ -22,4 +22,4 @@ async function toTXT(file) {
     });
 }
 
-module.exports = { fromPDF };
+module.exports = {fromPDF};
