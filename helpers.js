@@ -11,7 +11,7 @@ async function download(DIR, url) {
 
     const downloader = new Downloader({
         url: url,
-        headers: {'User-Agent': userAgent.toString()},
+        headers: { 'User-Agent': userAgent.toString() },
         directory: DIR,
         cloneFiles: false,
         onBeforeSave: (deducedName) => {
@@ -31,6 +31,7 @@ async function download(DIR, url) {
 const inputFormats = [
     'xlsx', 'xls',
     'html', 'htm',
+    'pdf',
 ];
 
 async function getOutput(file, format) {
@@ -46,6 +47,8 @@ async function getOutput(file, format) {
             case 'html':
             case 'htm':
                 output = await parse.fromHTML(format, file)
+            case 'pdf':
+                output = await parse.fromPDF(format, file)
         }
     } else {
         output = {
@@ -65,4 +68,4 @@ function createDir() {
     return DIR;
 }
 
-module.exports = {download, getOutput, createDir};
+module.exports = { download, getOutput, createDir };
