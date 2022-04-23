@@ -47,8 +47,10 @@ async function getOutput(file, format) {
             case 'html':
             case 'htm':
                 output = await parse.fromHTML(format, file)
+                break;
             case 'pdf':
                 output = await parse.fromPDF(format, file)
+                break;
         }
     } else {
         output = {

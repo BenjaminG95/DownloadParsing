@@ -7,7 +7,7 @@ async function fromHTML(to, file) {
     switch (to.toLowerCase()) {
         case 'text':
         case 'txt':
-            result = await toTXT(file)
+            result = await toText(file)
             break;
         default:
             result = {
@@ -18,7 +18,7 @@ async function fromHTML(to, file) {
     return result;
 }
 
-async function toTXT(file) {
+async function toText(file) {
     const html = fs.readFileSync(file);
     return convert(html.toString());
 }

@@ -4,7 +4,8 @@ async function fromPDF(to, file) {
     let result;
 
     switch (to.toLowerCase()) {
-        case 'pdf':
+        case 'txt':
+        case 'text':
             result = await toTXT(file);
             break;
         default:
@@ -12,13 +13,14 @@ async function fromPDF(to, file) {
                 error: 'Output format not supported !'
             };
     }
-
     return result;
 }
 
 async function toTXT(file) {
-    pdf2txt.pdfToText(file, function (error, txt) {
-        return (error) ? { error: error } : txt;
+    return new Promise((resolve, reject) => {
+        pdf2txt.pdfToText(file, (err, txt) => {
+            err ? reject(err) : resolve(txt);
+        });
     });
 }
 
