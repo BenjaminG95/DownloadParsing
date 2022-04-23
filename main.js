@@ -5,15 +5,22 @@ const helpers = require("./helpers");
 
 Apify.main(async () => {
     const input = await Apify.getInput();
+    let output;
 
-    const DIR = helpers.createDir();
-    let file = await helpers.download(DIR, input.url);
+    if (input.url === undefined || input.outputFormat === undefined) {
+        output = {error: "url or outputFormat input are missing !"};
+    } else {
+        const DIR = helpers.createDir();
+        let file = await helpers.download(DIR, input.url);
 
-    const output = (file)
-        ? await helpers.getOutput(file, input.outputFormat)
-        : {error: "File can't be downloaded !"};
+        output = (file)
+            ? await helpers.getOutput(file, input.outputFormat)
+            : {error: "File can't be downloaded !"};
 
-    fs.rmSync(DIR, {recursive: true});
+        fs.rmSync(DIR, {recursive: true});
+    }
 
     await Apify.setValue('OUTPUT', output);
+
+    return output;
 });
