@@ -1,53 +1,46 @@
-// Author : Benjamin
+// Author : Vassili JOFFROY & Benjamin GALOIS
 
 const Apify = require('apify');
 const fs = require("fs");
 const xlsx = require('xlsx')
-
-async function waitFile(filename) {
-    return new Promise(async (resolve, reject) => {
-        if (!fs.existsSync(filename)) {
-            await delay(3000);
-            await waitFile(filename);
-            resolve();
-        } else {
-            resolve();
-        }
-    })
-}
-
-function delay(time) {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, time)
-    });
-}
+const path = require("path");
+const Downloader = require("nodejs-file-downloader");
+const UserAgent = require("user-agents");
 
 Apify.main(async () => {
     const input = await Apify.getInput();
 
-    const browser = await Apify.launchPuppeteer({launchOptions: {headless: true, ignoreHTTPSErrors: true}});
-    const page = await browser.newPage();
+    const ID = Date.now();
+    const DIR = path.resolve(__dirname, './' + ID);
 
-    if (fs.existsSync(input.fileName)) {
-        fs.unlinkSync(input.fileName);
+    fs.mkdirSync(DIR);
+
+    let fileName;
+
+    const userAgent = new UserAgent();
+    const downloader = new Downloader({
+        url: input.url,
+        headers: {'User-Agent': userAgent.toString()},
+        directory: DIR,
+        cloneFiles: false,
+        onBeforeSave: (deducedName) => {
+            fileName = deducedName;
+        },
+    });
+
+    try {
+        await downloader.download();
+    } catch (error) {
+        return error;
     }
 
-    await page._client.send('Page.setDownloadBehavior', {
-        behavior: 'allow',
-        downloadPath: './'
-    });
-    await page.goto(input.url).catch((e) => (""));
-
-    await waitFile(input.fileName);
-
-    const workbook = xlsx.readFile(input.fileName);
+    const workbook = xlsx.readFile(DIR + '/' + fileName);
     const sheet = workbook.Sheets[workbook.SheetNames[1]];
     const csv = xlsx.utils.sheet_to_csv(sheet)
 
-    console.log(csv)
-    fs.unlinkSync(input.fileName);
+    fs.rmSync(DIR, {recursive: true});
 
     await Apify.setValue('OUTPUT', csv);
-    
+
     return csv;
 });
