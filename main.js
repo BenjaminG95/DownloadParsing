@@ -35,12 +35,13 @@ Apify.main(async () => {
     }
 
     const workbook = xlsx.readFile(DIR + '/' + fileName);
-    const sheet = workbook.Sheets[workbook.SheetNames[1]];
-    const csv = xlsx.utils.sheet_to_csv(sheet)
+    let csv = [];
+
+    workbook.SheetNames.forEach((sheetName) => {
+        csv.push(xlsx.utils.sheet_to_csv(workbook.Sheets[sheetName]))
+    })
 
     fs.rmSync(DIR, {recursive: true});
 
     await Apify.setValue('OUTPUT', csv);
-
-    return csv;
 });
