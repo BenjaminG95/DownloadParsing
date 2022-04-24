@@ -9,7 +9,7 @@ Download a file and parse it to output format easly in Apify from actor to task
 ```javascript
 const dataToSend = {
     "url": "https://www.orimi.com/pdf-test.pdf",
-    "outputFormat": "text"
+    "outputFormat": "txt"
 };
 
 const data = await $.ajax({
