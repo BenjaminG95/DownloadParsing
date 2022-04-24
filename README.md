@@ -1,33 +1,67 @@
-# My beautiful actor
 
-The `README.md` file contains a documentation what your actor does and how to use it,
-which is then displayed in the app or Apify Store. It's always a good
-idea to write a good `README.md`, in a few months not even you
-will remember all the details about the actor.
+# Project Title
 
-You can use [Markdown](https://www.markdownguide.org/cheat-sheet)
-language for rich formatting.
+A brief description of what this project does and who it's for
 
-## Documentation reference
 
-- [Apify SDK](https://sdk.apify.com/)
-- [Apify Actor documentation](https://docs.apify.com/actor)
-- [Apify CLI](https://docs.apify.com/cli)
+## Usage/Examples
 
-## Writing a README
+```javascript
+const dataToSend = {
+    "url": "https://www.orimi.com/pdf-test.pdf",
+    "outputFormat": "text"
+};
 
-See our tutorial on [writing READMEs for your actors](https://help.apify.com/en/articles/2912548-how-to-write-great-readme-for-your-actors) if you need more inspiration.
+const data = await $.ajax({
+    url: "https://api.apify.com/v2/acts/commoprices~sendbuffer/run-sync?token=co4A4W3HMrMEfo9vbdyMhdD3w&outputRecordKey=OUTPUT",
+    method: "POST",
+    timeout: 0,
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(dataToSend)
+});
 
-### Table of contents
+console.dir(dataBuffer)
+```
 
-If your README requires a table of contents, use the template below and make sure to keep the `<!-- toc start -->` and `<!-- toc end -->` markers.
 
-<!-- toc start -->
-- Introduction
-- Use Cases
-  - Case 1
-  - Case 2
-- Input
-- Output
-- Miscellaneous
- <!-- toc end -->
+## API Reference
+
+#### Required parameters
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `url` | `string` | **The url of your file to download** |
+| `outputFormat` | `string` | **Output Format of your input file** *(Check for valid pairs)* |
+
+#### Avaible Pairs
+
+| Input | Output |
+| :-------- | :------- |
+| `xlsx` `xls` | `csv` |
+| `html` `htm` | `txt` |
+| `pdf` | `txt` |
+
+
+## Used By
+
+This project is used by the following companies:
+
+- CommoPrices
+- Réussir
+
+## Roadmap
+
+- Additional pairs support
+
+- Add more integrations
+
+- Add more documentation
+
+- Add wiki page
+## Authors
+
+[@vassilidev](https://github.com/vassilidev) & [@BenjaminG95](https://github.com/BenjaminG95)
+## Support
+
+For support, create an issue or send us an email at vassili.joffroy@commoprices.com
+
