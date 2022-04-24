@@ -37,7 +37,7 @@ console.dir(dataBuffer)
 
 | Input | Output |
 | :-------- | :------- |
-| `xlsx` `xls` | `csv` |
+| `xlsx` `xls` | `txt` `csv` |
 | `html` `htm` | `txt` |
 | `pdf` | `txt` |
 
