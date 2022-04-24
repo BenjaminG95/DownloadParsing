@@ -1,5 +1,5 @@
 {
-	"name": "buffer-2-csv",
+	"name": "download-parsing",
 	"version": "0.0.1",
 	"description": "Download file and convert it.",
 	"dependencies": {
