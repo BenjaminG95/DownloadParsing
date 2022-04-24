@@ -1,4 +1,5 @@
-const pdf2txt = require("pdf-to-text");
+const pdf = require('pdf-parse');
+const fs = require('fs');
 
 async function fromPDF(to, file) {
     let result;
@@ -17,11 +18,9 @@ async function fromPDF(to, file) {
 }
 
 async function toTXT(file) {
-    return new Promise((resolve, reject) => {
-        pdf2txt.pdfToText(file, (err, txt) => {
-            err ? reject(err) : resolve(txt);
-        });
-    });
+    return await pdf(fs.readFileSync(file))
+        .then(data => data.text)
+        .catch(error => ({error: error}));
 }
 
 module.exports = {fromPDF};
