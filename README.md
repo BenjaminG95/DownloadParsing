@@ -63,5 +63,5 @@ This project is used by the following companies:
 [@vassilidev](https://github.com/vassilidev) & [@BenjaminG95](https://github.com/BenjaminG95)
 ## Support
 
-For support, create an issue or send us an email at vassili.joffroy@commoprices.com
+For support, create an issue or send us an email at vassili.joffroy@commoprices.com / benjamin.galois@commoprices.com
 
