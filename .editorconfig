@@ -1,0 +1,16 @@
+###############################
+# Core EditorConfig Options   #
+###############################
+root = true
+# All files
+[*]
+indent_style = space
+
+# JSON project files
+[*.json]
+indent_size = 4
+indent_style = tab
+
+# JavaScript project files
+[*.js]
+indent_size = 4
