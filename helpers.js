@@ -31,6 +31,7 @@ async function download(DIR, url) {
 const inputFormats = [
     'xlsx', 'xls',
     'html', 'htm',
+    'pdf',
 ];
 
 async function getOutput(file, format) {
@@ -46,6 +47,10 @@ async function getOutput(file, format) {
             case 'html':
             case 'htm':
                 output = await parse.fromHTML(format, file)
+                break;
+            case 'pdf':
+                output = await parse.fromPDF(format, file)
+                break;
         }
     } else {
         output = {
