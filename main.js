@@ -1,6 +1,5 @@
 // Author : Vassili JOFFROY & Benjamin GALOIS
 const Apify = require('apify');
-const fs = require("fs");
 const helpers = require("./helpers");
 
 Apify.main(async () => {
@@ -17,7 +16,7 @@ Apify.main(async () => {
             ? await helpers.getOutput(file, input.outputFormat)
             : {error: "File can't be downloaded !"};
 
-        fs.rmSync(DIR, {recursive: true});
+        helpers.deleteDir(DIR);
     }
 
     await Apify.setValue('OUTPUT', output);
