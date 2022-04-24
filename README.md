@@ -13,7 +13,7 @@ const dataToSend = {
 };
 
 const data = await $.ajax({
-    url: "https://api.apify.com/v2/acts/commoprices~sendbuffer/run-sync?token=co4A4W3HMrMEfo9vbdyMhdD3w&outputRecordKey=OUTPUT",
+    url: "https://api.apify.com/v2/acts/commoprices~sendbuffer/run-sync?token=<TOKEN>",
     method: "POST",
     timeout: 0,
     contentType: "application/json; charset=utf-8",
