@@ -1,11 +1,19 @@
 const xlsx = require("xlsx");
+let file;
+let workbook;
 
-async function fromXLSX(to, file) {
+async function fromXLSX(to, filePath) {
     let result;
+    file = filePath;
+    workbook = await xlsx.readFile(file);
 
     switch (to.toLowerCase()) {
         case 'csv':
-            result = await toCSV(file);
+            result = await toCSV();
+            break;
+        case 'txt':
+        case 'text':
+            result = await toTXT();
             break;
         default:
             result = {
@@ -16,8 +24,7 @@ async function fromXLSX(to, file) {
     return result;
 }
 
-async function toCSV(file) {
-    const workbook = xlsx.readFile(file);
+async function toCSV() {
     let csv = [];
 
     workbook.SheetNames.forEach((sheetName) => {
@@ -25,6 +32,16 @@ async function toCSV(file) {
     });
 
     return csv;
+}
+
+async function toTXT() {
+    let txt = [];
+
+    workbook.SheetNames.forEach((sheetName) => {
+        txt.push(xlsx.utils.sheet_to_txt(workbook.Sheets[sheetName], {type: 'string'}));
+    });
+
+    return txt;
 }
 
 module.exports = {fromXLSX};
