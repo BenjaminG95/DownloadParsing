@@ -70,4 +70,8 @@ function createDir() {
     return DIR;
 }
 
-module.exports = {download, getOutput, createDir};
+function deleteDir(DIR) {
+    fs.rmSync(DIR, {recursive: true});
+}
+
+module.exports = {download, getOutput, createDir, deleteDir};
