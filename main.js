@@ -1,20 +1,21 @@
 // Author : Vassili JOFFROY & Benjamin GALOIS
 const Apify = require('apify');
 const helpers = require("./helpers");
+const {getError} = require("./messages");
 
 Apify.main(async () => {
     const input = await Apify.getInput();
     let output;
 
     if (input.url === undefined || input.outputFormat === undefined) {
-        output = {error: "url or outputFormat input are missing !"};
+        output = getError('Input');
     } else {
         const DIR = helpers.createDir();
         let file = await helpers.download(DIR, input.url);
 
         output = (file)
             ? await helpers.getOutput(file, input.outputFormat)
-            : {error: "File can't be downloaded !"};
+            : getError('Download');
 
         helpers.deleteDir(DIR);
     }

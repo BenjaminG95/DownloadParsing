@@ -1,7 +1,7 @@
 {
 	"name": "DownloadParsing",
-	"version": "0.0",
+	"version": "1.0",
 	"buildTag": "latest",
-	"env": null,
+	"env": "null",
 	"template": "example_puppeteer_single_page"
 }

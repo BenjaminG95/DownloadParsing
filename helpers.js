@@ -3,9 +3,14 @@ const UserAgent = require("user-agents");
 const parse = require("./parse");
 const path = require("path");
 const fs = require("fs");
+const Apify = require("apify");
+const {getMessage, getError} = require("./messages");
 
 async function download(DIR, url) {
     const userAgent = new UserAgent();
+    const proxyConfiguration = await Apify.createProxyConfiguration({
+        countryCode: 'US',
+    });
 
     let fileName;
 
@@ -15,14 +20,33 @@ async function download(DIR, url) {
         directory: DIR,
         cloneFiles: false,
         onBeforeSave: (deducedName) => {
+            console.log("downloading " + deducedName + "...")
             fileName = DIR + '/' + deducedName;
         },
+        shouldStop(e) {
+            if (e.statusCode) {
+                console.log('error while downloading : ' + e.statusCode);
+            } else {
+                console.log(e);
+            }
+
+            return (e.statusCode !== 403);
+        },
+        onProgress(percentage) {
+            if (!isNaN(percentage)) {
+                console.log(percentage + '%');
+            }
+        },
+        maxAttempts: 5,
+        proxy: proxyConfiguration.newUrl(),
     });
 
     try {
         await downloader.download();
+        console.log(getMessage('DownloadOk'));
     } catch (error) {
         fileName = null;
+        console.log(getMessage('RetryMax'));
     }
 
     return fileName;
@@ -42,20 +66,18 @@ async function getOutput(file, format) {
         switch (inputFormat) {
             case 'xls':
             case 'xlsx':
-                output = await parse.fromXLSX(format, file)
+                output = await parse.fromXLSX(format, file);
                 break;
             case 'html':
             case 'htm':
-                output = await parse.fromHTML(format, file)
+                output = await parse.fromHTML(format, file);
                 break;
             case 'pdf':
-                output = await parse.fromPDF(format, file)
+                output = await parse.fromPDF(format, file);
                 break;
         }
     } else {
-        output = {
-            error: 'Input format not supported !'
-        }
+        output = getError('Input404');
     }
 
     return output;

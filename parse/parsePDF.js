@@ -1,5 +1,6 @@
 const pdf = require('pdf-parse');
 const fs = require('fs');
+const {getError} = require("../messages");
 
 async function fromPDF(to, file) {
     let result;
@@ -7,12 +8,10 @@ async function fromPDF(to, file) {
     switch (to.toLowerCase()) {
         case 'txt':
         case 'text':
-            result = await toTXT(file);
+            result = await toTXT(file) ?? getError('ParsingFailed');
             break;
         default:
-            result = {
-                error: 'Output format not supported !'
-            };
+            result = getError('Output404');
     }
     return result;
 }

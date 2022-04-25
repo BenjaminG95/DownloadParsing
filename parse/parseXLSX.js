@@ -1,4 +1,5 @@
 const xlsx = require("xlsx");
+const {getError} = require("../messages");
 let file;
 let workbook;
 
@@ -9,19 +10,17 @@ async function fromXLSX(to, filePath) {
 
     switch (to.toLowerCase()) {
         case 'csv':
-            result = await toCSV();
+            result = await toCSV() ?? getError('ParsingFailed');
             break;
         case 'txt':
         case 'text':
-            result = await toTXT();
+            result = await toTXT() ?? getError('ParsingFailed');
             break;
         case 'json':
-            result = await toJSON();
+            result = await toJSON() ?? getError('ParsingFailed');
             break;
         default:
-            result = {
-                error: 'Output format not supported !'
-            };
+            result = getError('Output404');
     }
 
     return result;
