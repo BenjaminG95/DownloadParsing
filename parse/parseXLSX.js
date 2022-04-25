@@ -15,6 +15,9 @@ async function fromXLSX(to, filePath) {
         case 'text':
             result = await toTXT();
             break;
+        case 'json':
+            result = await toJSON();
+            break;
         default:
             result = {
                 error: 'Output format not supported !'
@@ -42,6 +45,16 @@ async function toTXT() {
     });
 
     return txt;
+}
+
+async function toJSON() {
+    let json = [];
+
+    workbook.SheetNames.forEach((sheetName) => {
+        json.push(xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]));
+    });
+
+    return json;
 }
 
 module.exports = {fromXLSX};
