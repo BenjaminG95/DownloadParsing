@@ -2,8 +2,6 @@
 
 Download a file and parse it to output format easly in Apify from actor to task
 
-
-
 ## Usage/Examples
 
 ```javascript
@@ -23,7 +21,6 @@ const data = await $.ajax({
 console.dir(dataBuffer)
 ```
 
-
 ## API Reference
 
 #### Required parameters
@@ -36,11 +33,12 @@ console.dir(dataBuffer)
 #### Avaible Pairs
 
 | Input | Output |
-| :-------- | :------- |
-| `xlsx` `xls` | `txt` `csv` |
-| `html` `htm` | `txt` |
-| `pdf` | `txt` |
-
+| :-------- |:-------|
+| `xlsx` `xls` | `txt`  |
+| `xlsx` `xls` | `csv`  |
+| `xlsx` `xls` | `json` |
+| `html` `htm` | `txt`  |
+| `pdf` | `txt`  |
 
 ## Used By
 
@@ -58,10 +56,12 @@ This project is used by the following companies:
 - Add more documentation
 
 - Add wiki page
+
 ## Authors
 
 [@vassilidev](https://github.com/vassilidev) & [@BenjaminG95](https://github.com/BenjaminG95)
+
 ## Support
 
-For support, create an issue or send us an email at vassili.joffroy@commoprices.com / benjamin.galois@commoprices.com
+For support, create an issue or email us at vassili.joffroy@commoprices.com / benjamin.galois@commoprices.com
 
