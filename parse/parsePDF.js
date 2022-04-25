@@ -1,14 +1,16 @@
-const pdf = require('pdf-parse');
 const fs = require('fs');
 const {getError} = require("../messages");
+const pdf = require("pdf-to-text");
 
-async function fromPDF(to, file) {
+let file;
+
+async function fromPDF(to, filePath) {
     let result;
-
+    file = filePath;
     switch (to.toLowerCase()) {
         case 'txt':
         case 'text':
-            result = await toTXT(file) ?? getError('ParsingFailed');
+            result = await toTXT() ?? getError('ParsingFailed');
             break;
         default:
             result = getError('Output404');
@@ -16,10 +18,13 @@ async function fromPDF(to, file) {
     return result;
 }
 
-async function toTXT(file) {
-    return await pdf(fs.readFileSync(file))
-        .then(data => data.text)
-        .catch(error => ({error: error}));
+async function toTXT() {
+    return new Promise((resolve, reject) => {
+        pdf.pdfToText(file, (err, data) => {
+            if (err) reject({errror: err});
+            resolve(data);
+        });
+    });
 }
 
 module.exports = {fromPDF};
