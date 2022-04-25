@@ -21,7 +21,7 @@ async function fromPDF(to, filePath) {
 async function toTXT() {
     return new Promise((resolve, reject) => {
         pdf.pdfToText(file, (err, data) => {
-            if (err) reject({errror: err});
+            if (err) reject(err);
             resolve(data);
         });
     });
