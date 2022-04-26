@@ -1,4 +1,3 @@
-const fs = require('fs');
 const {getError} = require("../messages");
 const pdf = require("pdf-to-text");
 
@@ -18,7 +17,7 @@ async function fromPDF(to, filePath) {
     return result;
 }
 
-async function toTXT() {
+function toTXT() {
     return new Promise((resolve, reject) => {
         pdf.pdfToText(file, (err, data) => {
             if (err) reject(err);
