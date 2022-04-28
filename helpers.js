@@ -37,7 +37,7 @@ async function download(DIR, url) {
                 console.log(percentage + '%');
             }
         },
-        maxAttempts: 5,
+        maxAttempts: 7,
         proxy: proxyConfiguration.newUrl(),
     });
 
@@ -56,6 +56,7 @@ const inputFormats = [
     'xlsx', 'xls',
     'html', 'htm',
     'pdf',
+    'docx',
 ];
 
 async function getOutput(file, format) {
@@ -74,6 +75,9 @@ async function getOutput(file, format) {
                 break;
             case 'pdf':
                 output = await parse.fromPDF(format, file);
+                break;
+            case 'docx':
+                output = await parse.fromDOCX(format, file);
                 break;
         }
     } else {

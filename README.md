@@ -32,13 +32,14 @@ console.dir(dataBuffer)
 
 #### Avaible Pairs
 
-| Input | Output |
-| :-------- |:-------|
+| Input        | Output |
+|:-------------|:-------|
 | `xlsx` `xls` | `txt`  |
 | `xlsx` `xls` | `csv`  |
 | `xlsx` `xls` | `json` |
 | `html` `htm` | `txt`  |
-| `pdf` | `txt`  |
+| `pdf`        | `txt`  |
+| `docx`       | `txt`  |
 
 ## Used By
 
