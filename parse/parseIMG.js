@@ -13,7 +13,6 @@ async function fromIMG(to, filePath) {
         default:
             result = getError('Output404');
     }
-    console.log(result)
     return result;
 }
 
