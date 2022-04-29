@@ -34,6 +34,7 @@ console.dir(dataBuffer)
 
 | Input        | Output |
 |:-------------|:-------|
+| `png` `jpg` `jpeg` | `txt`  |
 | `xlsx` `xls` | `txt`  |
 | `xlsx` `xls` | `csv`  |
 | `xlsx` `xls` | `json` |
