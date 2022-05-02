@@ -53,6 +53,7 @@ async function download(DIR, url) {
 }
 
 const inputFormats = [
+    'png', 'jpg', 'jpeg',
     'xlsx', 'xls',
     'html', 'htm',
     'pdf',
@@ -78,6 +79,11 @@ async function getOutput(file, format) {
                 break;
             case 'docx':
                 output = await parse.fromDOCX(format, file);
+                break;
+            case 'png':
+            case 'jpg':
+            case 'jpeg':
+                output = await parse.fromIMG(format, file);
                 break;
         }
     } else {

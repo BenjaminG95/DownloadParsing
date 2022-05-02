@@ -6,6 +6,7 @@
 		"apify": "^2.0.7",
 		"html-to-text": "^8.2.0",
 		"mammoth": "^1.4.21",
+		"node-tesseract-ocr": "^2.2.1",
 		"nodejs-file-downloader": "^4.9.3",
 		"pdf-to-text": "^0.0.7",
 		"user-agents": "^1.0.995",
