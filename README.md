@@ -11,14 +11,14 @@ const dataToSend = {
 };
 
 const data = await $.ajax({
-    url: "https://api.apify.com/v2/acts/commoprices~sendbuffer/run-sync?token=<TOKEN>",
+    url: "https://api.apify.com/v2/acts/commoprices~downloadparsing/run-sync?token=<TOKEN>",
     method: "POST",
     timeout: 0,
     contentType: "application/json; charset=utf-8",
     data: JSON.stringify(dataToSend)
 });
 
-console.dir(dataBuffer)
+console.dir(data)
 ```
 
 ## API Reference
